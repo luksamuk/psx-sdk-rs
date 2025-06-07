@@ -31,7 +31,7 @@
 #![no_std]
 #![deny(missing_docs)]
 // For compile-time Wavefront OBJ parser
-#![feature(const_mut_refs, maybe_uninit_array_assume_init)]
+#![feature(maybe_uninit_array_assume_init)]
 // Used to make `AsCStr` efficient
 #![feature(
     maybe_uninit_slice,
