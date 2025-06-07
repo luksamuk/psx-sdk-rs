@@ -182,8 +182,8 @@ impl<
 {
     /// Creates an array by calling `f` for each face.
     pub fn for_each_face<T, F>(&self, mut f: F) -> [T; FACES]
-    where F: FnMut() -> T {
-        let mut res = MaybeUninit::uninit_array();
+    where F: FnMut() -> T, [(); FACES]: {
+        let mut res = [const { MaybeUninit::uninit() }; FACES];
         for n in 0..QUADS + TRIS {
             res[n].write(f());
         }
@@ -194,9 +194,9 @@ impl<
     /// tri.
     pub fn map_faces<T, F, G>(&self, mut f_quad: F, mut f_tri: G) -> [T; FACES]
     where
-        F: FnMut([u16; 4]) -> T,
-        G: FnMut([u16; 3]) -> T, {
-        let mut res = MaybeUninit::uninit_array();
+        F: FnMut([u16; 4]) -> T, [(); FACES]:,
+        G: FnMut([u16; 3]) -> T, [(); FACES]: {
+        let mut res = [const { MaybeUninit::uninit() }; FACES];
         for n in 0..QUADS + TRIS {
             if n < QUADS {
                 res[n].write(f_quad(self.quads[n]));

@@ -34,7 +34,6 @@
 #![feature(const_mut_refs, maybe_uninit_array_assume_init)]
 // Used to make `AsCStr` efficient
 #![feature(
-    maybe_uninit_uninit_array,
     maybe_uninit_slice,
     maybe_uninit_write_slice
 )]
@@ -53,6 +52,8 @@
 #![test_runner(crate::test::runner)]
 #![reexport_test_harness_main = "main"]
 #![cfg_attr(test, no_main)]
+
+#![feature(generic_const_exprs)]
 
 // This module is first since it defines the fuzz macros for tests
 #[macro_use]

@@ -31,7 +31,7 @@ impl<T: AsRef<[u8]>> AsCStr for T {
                     );
                 }
                 // Create an uninitialized array of up to 128 bytes on the stack
-                let mut uninitialized = MaybeUninit::uninit_array::<MAX_LEN>();
+                let mut uninitialized = [const { MaybeUninit::uninit() }; MAX_LEN];
                 // Initialize the CStr with the input string
                 let initialized_part = &mut uninitialized[0..slice.len() + 1];
                 MaybeUninit::copy_from_slice(&mut initialized_part[0..slice.len()], slice);
